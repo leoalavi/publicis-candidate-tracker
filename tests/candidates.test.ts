@@ -16,6 +16,9 @@ function makeCandidate(name: string, stage: Stage, role: string, createdAt: stri
     archived: false,
     created_at: createdAt,
     updated_at: createdAt,
+    ai_summary: null,
+    ai_summary_generated_at: null,
+    ai_summary_resume_hash: null,
   };
 }
 

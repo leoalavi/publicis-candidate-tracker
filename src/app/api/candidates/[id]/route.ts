@@ -1,6 +1,7 @@
 import { getSupabase } from "@/lib/supabase";
 import { candidateUpdateSchema, getFieldErrors, isValidId } from "@/lib/validation";
 import { jsonError, readJson, serverError } from "@/lib/api";
+import { hashResumeText } from "@/lib/ai";
 
 type Context = { params: Promise<{ id: string }> };
 
@@ -28,7 +29,11 @@ export async function GET(_request: Request, { params }: Context) {
       .order("created_at", { ascending: false });
 
     if (notesError) return serverError("get notes", notesError);
-    return Response.json({ ...candidate, notes });
+
+    const aiSummaryIsStale =
+      candidate.ai_summary !== null && candidate.ai_summary_resume_hash !== hashResumeText(candidate.resume_text);
+
+    return Response.json({ ...candidate, notes, ai_summary_is_stale: aiSummaryIsStale });
   } catch (error) {
     return serverError("get candidate", error);
   }

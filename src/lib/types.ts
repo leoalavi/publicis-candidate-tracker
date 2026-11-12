@@ -19,6 +19,9 @@ export type Candidate = {
   archived: boolean;
   created_at: string;
   updated_at: string;
+  ai_summary: string | null;
+  ai_summary_generated_at: string | null;
+  ai_summary_resume_hash: string | null;
 };
 
 // One row of the `candidate_notes` table.
@@ -30,4 +33,12 @@ export type CandidateNote = {
 };
 
 // What GET /api/candidates/[id] returns.
-export type CandidateWithNotes = Candidate & { notes: CandidateNote[] };
+// ai_summary_is_stale is true when the resume changed after the summary was made.
+export type CandidateWithNotes = Candidate & { notes: CandidateNote[]; ai_summary_is_stale: boolean };
+
+// What POST /api/candidates/[id]/summary returns.
+export type AiSummaryResult = {
+  ai_summary: string;
+  ai_summary_generated_at: string;
+  ai_summary_is_stale: boolean;
+};

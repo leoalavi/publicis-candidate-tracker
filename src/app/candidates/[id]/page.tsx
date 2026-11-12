@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { AiSummary } from "@/components/AiSummary";
 import { NotesSection } from "@/components/NotesSection";
 import { StageBadge } from "@/components/StageBadge";
 import { cardClass, dangerButtonClass, inputClass, labelClass, secondaryButtonClass } from "@/components/ui";
@@ -141,6 +142,14 @@ export default function CandidateDetailPage() {
             <h2 id="resume-heading" className="mb-3 text-lg font-semibold">Resume / cover letter</h2>
             <p className="max-h-96 overflow-y-auto whitespace-pre-wrap text-sm leading-6">{candidate.resume_text}</p>
           </section>
+
+          <AiSummary
+            candidateId={candidate.id}
+            hasResumeText={candidate.resume_text.trim().length > 0}
+            initialSummary={candidate.ai_summary}
+            initialGeneratedAt={candidate.ai_summary_generated_at}
+            initialIsStale={candidate.ai_summary_is_stale}
+          />
 
           <NotesSection candidateId={candidate.id} notes={candidate.notes} onNoteAdded={handleNoteAdded} />
         </div>

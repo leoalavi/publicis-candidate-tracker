@@ -13,7 +13,11 @@ create table if not exists candidates (
   source      text,
   archived    boolean not null default false,
   created_at  timestamptz not null default now(),
-  updated_at  timestamptz not null default now()
+  updated_at  timestamptz not null default now(),
+  -- AI summary (Phase 2). See supabase/migrations/001_ai_summary.sql.
+  ai_summary              text,
+  ai_summary_generated_at timestamptz,
+  ai_summary_resume_hash  text
 );
 
 -- Notes are append-only: the app only ever inserts rows here.
