@@ -5,7 +5,7 @@ import { z } from "zod";
 // The AI summary module. Everything that talks to Gemini lives in this file.
 // Server-only: it reads GEMINI_API_KEY, which must never reach the browser.
 
-export const GEMINI_MODEL = "gemini-3.6-flash";
+export const GEMINI_MODEL = "gemini-3.5-flash-lite";
 export const MAX_RESUME_CHARS_FOR_AI = 20_000;
 const MAX_SUMMARY_WORDS = 150;
 const REQUEST_TIMEOUT_MS = 20_000;
